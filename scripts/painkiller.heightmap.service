@@ -1,0 +1,12 @@
+[Unit]
+Description=painkiller/heightmap
+
+[Service]
+ExecStart=/usr/bin/python /home/arctair/painkiller/heightmap/main.py
+StandardOutput=file:/home/arctair/painkiller/heightmap/application.log
+StandardError=file:/home/arctair/painkiller/heightmap/error.log
+Type=simple
+WorkingDirectory=/home/arctair/painkiller/heightmap
+
+[Install]
+WantedBy=default.target

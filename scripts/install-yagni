@@ -1,0 +1,9 @@
+#!/bin/zsh
+# remember to push this BEFORE you run it!!
+cat <<EOF | ssh yagni -T
+  mkdir -p $HOME/painkiller
+  git clone https://github.com/cruftbusters/heightmap painkiller/heightmap
+  cd painkiller/heightmap
+  ln -s $HOME/painkiller/heightmap/scripts/painkiller.heightmap.service $HOME/.config/systemd/user/
+  systemctl enable painkiller.heightmap --user
+EOF

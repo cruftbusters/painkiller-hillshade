@@ -1,0 +1,6 @@
+cat <<EOF | ssh yagni -T
+  cd /home/arctair/painkiller/heightmap
+  git pull
+  systemctl daemon-reload --user
+  systemctl restart painkiller.heightmap --user
+EOF
