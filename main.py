@@ -8,7 +8,7 @@ def main():
 
 
 def tick():
-    response = requests.get("https://gallery.painkillergis.com/v1/heightmaps")
+    response = requests.get("https://gallery.painkillergis.com/v1/maps")
     heightmaps = response.json()
 
     for heightmap in heightmaps:
@@ -18,7 +18,7 @@ def tick():
 
 def process(heightmap):
     requests.patch(
-        f"https://gallery.painkillergis.com/v1/heightmaps/{heightmap['id']}",
+        f"https://gallery.painkillergis.com/v1/maps/{heightmap['id']}",
         json.dumps({"imageURL": "https://painkillergis.com/1352x955.jpg"}),
     )
 
