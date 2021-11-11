@@ -1,6 +1,7 @@
-import json
 import requests
 import time
+
+from generate import generate
 
 dummyPayload = requests.get("https://painkillergis.com/1352x955.jpg").content
 
@@ -20,10 +21,6 @@ def tick():
     for heightmap in heightmaps:
         if heightmap["imageURL"] == "":
             requests.put(f"{baseURL}/{heightmap['id']}/heightmap.jpg", generate(heightmap))
-
-
-def generate(heightmap):
-    return dummyPayload
 
 
 main()
