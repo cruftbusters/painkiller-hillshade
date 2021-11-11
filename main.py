@@ -1,4 +1,10 @@
-import json, requests, time
+import json
+import requests
+import time
+
+dummyPayload = requests.get("https://painkillergis.com/1352x955.jpg").content
+
+baseURL = "https://gallery.painkillergis.com/v1/maps"
 
 
 def main():
@@ -8,7 +14,7 @@ def main():
 
 
 def tick():
-    response = requests.get("https://gallery.painkillergis.com/v1/maps")
+    response = requests.get(baseURL)
     heightmaps = response.json()
 
     for heightmap in heightmaps:
@@ -17,9 +23,12 @@ def tick():
 
 
 def process(heightmap):
+    mapURL = f"{baseURL}/{heightmap['id']}"
+    heightmapURL = f"{mapURL}/heightmap.jpg"
+    requests.put(heightmapURL, dummyPayload)
     requests.patch(
-        f"https://gallery.painkillergis.com/v1/maps/{heightmap['id']}",
-        json.dumps({"imageURL": "https://painkillergis.com/1352x955.jpg"}),
+        mapURL,
+        json.dumps({"imageURL": heightmapURL}),
     )
 
 
