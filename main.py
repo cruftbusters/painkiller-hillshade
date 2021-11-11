@@ -19,11 +19,11 @@ def tick():
 
     for heightmap in heightmaps:
         if heightmap["imageURL"] == "":
-            process(heightmap)
+            requests.put(f"{baseURL}/{heightmap['id']}/heightmap.jpg", generate(heightmap))
 
 
-def process(heightmap):
-    requests.put(f"{baseURL}/{heightmap['id']}/heightmap.jpg", dummyPayload)
+def generate(heightmap):
+    return dummyPayload
 
 
 main()
