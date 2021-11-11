@@ -23,13 +23,7 @@ def tick():
 
 
 def process(heightmap):
-    mapURL = f"{baseURL}/{heightmap['id']}"
-    heightmapURL = f"{mapURL}/heightmap.jpg"
-    requests.put(heightmapURL, dummyPayload)
-    requests.patch(
-        mapURL,
-        json.dumps({"imageURL": heightmapURL}),
-    )
+    requests.put(f"{baseURL}/{heightmap['id']}/heightmap.jpg", dummyPayload)
 
 
 main()
