@@ -24,6 +24,7 @@ def tick():
             with open(heightmap, 'rb') as f:
                 requests.put(f"{baseURL}/{metadata['id']}/heightmap.jpg", f.read())
             os.remove(heightmap)
+            os.remove(f"{heightmap}.aux.xml")
 
 
 main()

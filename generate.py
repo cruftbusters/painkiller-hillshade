@@ -48,6 +48,7 @@ def generate(sourcePath, metadata):
     )
 
     os.remove(warp)
+    os.remove(f"{warp}.aux.xml")
 
     return translate
 
@@ -58,3 +59,4 @@ if __name__ == "__main__":
     with open(heightmap, 'rb') as f:
         sys.stdout.buffer.write(f.read())
     os.remove(heightmap)
+    os.remove(f"{heightmap}.aux.xml")
