@@ -23,7 +23,7 @@ def generate(sourcePath, metadata):
         warp,
         sourcePath,
         options=gdal.WarpOptions(
-            outputBounds=[left, top, right, bottom],
+            outputBounds=[left, bottom, right, top],
             outputBoundsSRS="EPSG:3857",
             width=metadata['size']['width'],
             height=metadata['size']['height'],
