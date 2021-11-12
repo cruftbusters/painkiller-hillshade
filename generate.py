@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 import tempfile
 
@@ -46,10 +47,14 @@ def generate(sourcePath, metadata):
         )
     )
 
+    os.remove(warp)
+
     return translate
 
 
 if __name__ == "__main__":
     source = '/home/arctair/ws/cruftbusters/heightmap/3dep13/n46w106.img'
-    with open(generate(source, json.load(sys.stdin)), 'rb') as f:
+    heightmap = generate(source, json.load(sys.stdin))
+    with open(heightmap, 'rb') as f:
         sys.stdout.buffer.write(f.read())
+    os.remove(heightmap)

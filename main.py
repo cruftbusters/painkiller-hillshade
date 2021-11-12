@@ -1,3 +1,4 @@
+import os
 import sys
 
 import requests
@@ -19,8 +20,10 @@ def main():
 def tick():
     for metadata in requests.get(baseURL).json():
         if metadata["imageURL"] == "":
-            with open(generate(sourcePath, metadata), 'rb') as f:
+            heightmap = generate(sourcePath, metadata)
+            with open(heightmap, 'rb') as f:
                 requests.put(f"{baseURL}/{metadata['id']}/heightmap.jpg", f.read())
+            os.remove(heightmap)
 
 
 main()
