@@ -1,0 +1,9 @@
+#!/bin/zsh
+if [ ! -f 3dep1/n46w106.img ] ; then
+  mkdir -p 3dep1
+  scp yagni:warehouse/3dep1/n46w106.img 3dep1/
+fi
+if [ ! -f 3dep13/n46w106.img ] ; then
+  mkdir -p 3dep13
+  scp yagni:warehouse/3dep13/n46w106.img 3dep13/
+fi

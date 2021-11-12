@@ -1,3 +1,0 @@
-#!/bin/zsh
-mkdir 3dep13
-scp yagni:warehouse/3dep13/n46w106.img 3dep13
