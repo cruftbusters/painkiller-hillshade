@@ -8,33 +8,33 @@ from osgeo import gdal, gdalconst
 def generate(sourcePath, metadata):
     left = metadata['position']['left']
     top = metadata['position']['top']
-    right = left + 1
-    bottom = top - 1
+    right = left + 10000
+    bottom = top - 10000
     if left == 0 and top == 0:
         left = metadata['bounds']['left']
         top = metadata['bounds']['top']
         right = metadata['bounds']['right']
         bottom = metadata['bounds']['bottom']
 
-    source = gdal.Open(sourcePath)
-    band = source.GetRasterBand(1)
-    stats = band.GetStatistics(True, True)
-    minimum = stats[0]
-    maximum = stats[1]
-
     warp = tempfile.mktemp()
     translate = tempfile.mktemp()
 
     gdal.Warp(
         warp,
-        source,
+        sourcePath,
         options=gdal.WarpOptions(
             outputBounds=[left, top, right, bottom],
-            outputBoundsSRS="EPSG:4326",
+            outputBoundsSRS="EPSG:3857",
             width=metadata['size']['width'],
             height=metadata['size']['height'],
         )
     )
+
+    warpSource = gdal.Open(warp)
+    band = warpSource.GetRasterBand(1)
+    stats = band.GetStatistics(True, True)
+    minimum = stats[0]
+    maximum = stats[1]
 
     gdal.Translate(
         translate,
@@ -45,6 +45,7 @@ def generate(sourcePath, metadata):
             scaleParams=[[minimum, maximum, 0, 255]],
         )
     )
+
     return translate
 
 
