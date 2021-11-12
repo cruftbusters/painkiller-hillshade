@@ -7,15 +7,10 @@ from osgeo import gdal, gdalconst
 
 
 def generate(sourcePath, metadata):
-    left = metadata['position']['left']
-    top = metadata['position']['top']
-    right = left + 10000
-    bottom = top - 10000
-    if left == 0 and top == 0:
-        left = metadata['bounds']['left']
-        top = metadata['bounds']['top']
-        right = metadata['bounds']['right']
-        bottom = metadata['bounds']['bottom']
+    left = metadata['bounds']['left']
+    top = metadata['bounds']['top']
+    right = metadata['bounds']['right']
+    bottom = metadata['bounds']['bottom']
 
     warpPath = f"/vsimem/{metadata['id']}.warp.tif"
     gdal.Warp(
