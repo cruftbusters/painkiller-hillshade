@@ -1,10 +1,12 @@
+import sys
+
 import requests
 import time
 
 from generate import generate
 
-dummyPayload = requests.get("https://painkillergis.com/1352x955.jpg").content
 
+sourcePath = sys.argv[1]
 baseURL = "https://gallery.painkillergis.com/v1/maps"
 
 
@@ -20,7 +22,8 @@ def tick():
 
     for heightmap in heightmaps:
         if heightmap["imageURL"] == "":
-            requests.put(f"{baseURL}/{heightmap['id']}/heightmap.jpg", generate(heightmap))
+            with open(generate(sourcePath, heightmap), 'rb') as f:
+                requests.put(f"{baseURL}/{heightmap['id']}/heightmap.jpg", f.read())
 
 
 main()
