@@ -1,2 +1,0 @@
-#!/bin/zsh
-echo '{"id":"0dda2023-95ff-4d69-8247-a20790456fa0","size":{"width":1352,"height":955},"position":{"left":0,"top":0},"bounds":{"left":-11780849.623873036,"top":5717822.11303601,"right":-11686083.801361185,"bottom":5650883.236927416},"imageURL":""}' | python generate.py | display

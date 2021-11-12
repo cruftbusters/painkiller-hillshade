@@ -6,8 +6,11 @@ import time
 
 from generate import generate
 
-
-sourcePath = sys.argv[1]
+args = sys.argv[1:]
+sources = [
+    {"minGroundSpacing": int(minGroundSpacing), "path": sourcePath}
+    for minGroundSpacing, sourcePath in zip(args[::2], args[1::2])
+]
 baseURL = "https://gallery.painkillergis.com/v1/maps"
 
 
@@ -20,7 +23,7 @@ def main():
 def tick():
     for metadata in requests.get(baseURL).json():
         if metadata["imageURL"] == "":
-            heightmap = generate(sourcePath, metadata)
+            heightmap = generate(sources, metadata)
             with open(heightmap, 'rb') as f:
                 requests.put(f"{baseURL}/{metadata['id']}/heightmap.jpg", f.read())
             os.remove(heightmap)

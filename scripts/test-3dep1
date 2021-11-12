@@ -1,0 +1,2 @@
+#!/bin/zsh
+cat scripts/metadata-3dep1.json | python generate.py | display
