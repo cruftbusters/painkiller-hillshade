@@ -17,13 +17,10 @@ def main():
 
 
 def tick():
-    response = requests.get(baseURL)
-    heightmaps = response.json()
-
-    for heightmap in heightmaps:
-        if heightmap["imageURL"] == "":
-            with open(generate(sourcePath, heightmap), 'rb') as f:
-                requests.put(f"{baseURL}/{heightmap['id']}/heightmap.jpg", f.read())
+    for metadata in requests.get(baseURL).json():
+        if metadata["imageURL"] == "":
+            with open(generate(sourcePath, metadata), 'rb') as f:
+                requests.put(f"{baseURL}/{metadata['id']}/heightmap.jpg", f.read())
 
 
 main()
