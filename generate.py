@@ -17,11 +17,9 @@ def generate(sourcePath, metadata):
         right = metadata['bounds']['right']
         bottom = metadata['bounds']['bottom']
 
-    warp = tempfile.mktemp()
-    translate = tempfile.mktemp()
-
+    warpPath = f"/vsimem/{metadata['id']}.warp.tif"
     gdal.Warp(
-        warp,
+        warpPath,
         sourcePath,
         options=gdal.WarpOptions(
             outputBounds=[left, bottom, right, top],
@@ -31,15 +29,16 @@ def generate(sourcePath, metadata):
         )
     )
 
-    warpSource = gdal.Open(warp)
+    warpSource = gdal.Open(warpPath)
     band = warpSource.GetRasterBand(1)
     stats = band.GetStatistics(True, True)
     minimum = stats[0]
     maximum = stats[1]
 
+    translate = tempfile.mktemp()
     gdal.Translate(
         translate,
-        warp,
+        warpSource,
         options=gdal.TranslateOptions(
             format='JPEG',
             outputType=gdalconst.GDT_Byte,
@@ -47,8 +46,8 @@ def generate(sourcePath, metadata):
         )
     )
 
-    os.remove(warp)
-    os.remove(f"{warp}.aux.xml")
+    del warpSource
+    gdal.GetDriverByName('GTiff').Delete(warpPath)
 
     return translate
 
