@@ -22,7 +22,7 @@ def main():
 
 def tick():
     for metadata in requests.get(baseURL).json():
-        if metadata["imageURL"] == "":
+        if metadata["heightmapURL"] == "":
             heightmap = generate(sources, metadata)
             with open(heightmap, 'rb') as f:
                 requests.put(f"{baseURL}/{metadata['id']}/heightmap.jpg", f.read())
