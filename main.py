@@ -11,16 +11,16 @@ sources = [
     {"minGroundSpacing": int(minGroundSpacing), "path": sourcePath}
     for minGroundSpacing, sourcePath in zip(args[::2], args[1::2])
 ]
-baseURL = "https://gallery.painkillergis.com"
 
 
 def main():
     while True:
-        tick()
+        tick("https://gallery.painkillergis.com")
+        tick("https://layouts.painkillergis.com")
         time.sleep(2.5)
 
 
-def tick():
+def tick(baseURL):
     for layout in requests.get(f"{baseURL}/v1/layouts?excludeLayoutsWithHeightmap=true").json():
         if layout["heightmapURL"] == "":
             heightmap = generate(sources, layout)
