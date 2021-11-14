@@ -21,13 +21,21 @@ def main():
 
 def tick(baseURL):
     try:
-        for layout in requests.get(f"{baseURL}/v1/layouts?excludeLayoutsWithHeightmap=true").json():
-            if layout["heightmapURL"] == "":
-                heightmap = generate(sources, layout)
-                with open(heightmap, 'rb') as f:
-                    requests.put(f"{baseURL}/v1/layouts/{layout['id']}/heightmap.jpg", f.read())
-                os.remove(heightmap)
-                os.remove(f"{heightmap}.aux.xml")
+        response = requests.get(f"{baseURL}/v1/layouts?excludeLayoutsWithHeightmap=true")
+        if response.status_code == 200:
+            for layout in response.json():
+                if layout["heightmapURL"] == "":
+                    heightmap = generate(sources, layout)
+                    with open(heightmap, 'rb') as f:
+                        requests.put(f"{baseURL}/v1/layouts/{layout['id']}/heightmap.jpg", f.read())
+                    os.remove(heightmap)
+                    os.remove(f"{heightmap}.aux.xml")
+        else:
+            print(
+                "Failed to communicate with layout service",
+                f"got status code: {response.status_code}",
+                file=sys.stderr,
+            )
     except requests.exceptions.RequestException as e:
         print("Failed to communicate with layout service", e, file=sys.stderr)
 
