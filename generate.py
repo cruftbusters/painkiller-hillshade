@@ -6,20 +6,20 @@ import tempfile
 from osgeo import gdal, gdalconst
 
 
-def generate(sources, metadata):
-    width = metadata['size']['width']
-    height = metadata['size']['height']
-    left = metadata['bounds']['left']
-    top = metadata['bounds']['top']
-    right = metadata['bounds']['right']
-    bottom = metadata['bounds']['bottom']
+def generate(sources, layout):
+    width = layout['size']['width']
+    height = layout['size']['height']
+    left = layout['bounds']['left']
+    top = layout['bounds']['top']
+    right = layout['bounds']['right']
+    bottom = layout['bounds']['bottom']
 
     sourcePath = selectSourceByGroundSpacing(
         sources,
         min((right - left) / width, (top - bottom) / height),
     )
 
-    warpPath = f"/vsimem/{metadata['id']}.warp.tif"
+    warpPath = f"/vsimem/{layout['id']}.warp.tif"
     gdal.Warp(
         warpPath,
         sourcePath,
