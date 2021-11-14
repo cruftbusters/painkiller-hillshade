@@ -15,7 +15,6 @@ sources = [
 
 def main():
     while True:
-        tick("https://gallery.painkillergis.com")
         tick("https://layouts.painkillergis.com")
         time.sleep(2.5)
 
