@@ -1,0 +1,12 @@
+[Unit]
+Description=painkiller/hillshade
+
+[Service]
+ExecStart=/usr/bin/python /home/arctair/painkiller/hillshade/main.py
+StandardOutput=file:/home/arctair/painkiller/hillshade/application.log
+StandardError=file:/home/arctair/painkiller/hillshade/error.log
+Type=simple
+WorkingDirectory=/home/arctair/painkiller/hillshade
+
+[Install]
+WantedBy=default.target

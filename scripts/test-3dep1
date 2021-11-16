@@ -1,2 +1,0 @@
-#!/bin/zsh
-cat scripts/layout-3dep1.json | python generate.py | display

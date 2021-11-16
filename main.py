@@ -6,12 +6,6 @@ import time
 
 from generate import generate
 
-args = sys.argv[1:]
-sources = [
-    {"minGroundSpacing": int(minGroundSpacing), "path": sourcePath}
-    for minGroundSpacing, sourcePath in zip(args[::2], args[1::2])
-]
-
 
 def main():
     while True:
@@ -21,15 +15,13 @@ def main():
 
 def tick(baseURL):
     try:
-        response = requests.get(f"{baseURL}/v1/layouts?excludeLayoutsWithHeightmap=true")
+        response = requests.get(f"{baseURL}/v1/layouts?excludeLayoutsWithHillshade=true")
         if response.status_code == 200:
             for layout in response.json():
-                if layout["heightmapURL"] == "":
-                    heightmap = generate(sources, layout)
-                    with open(heightmap, 'rb') as f:
-                        requests.put(f"{baseURL}/v1/layouts/{layout['id']}/heightmap.jpg", f.read())
-                    os.remove(heightmap)
-                    os.remove(f"{heightmap}.aux.xml")
+                hillshade = generate(layout)
+                with open(hillshade, 'rb') as f:
+                    requests.put(f"{baseURL}/v1/layouts/{layout['id']}/hillshade.jpg", f.read())
+                os.remove(hillshade)
         else:
             print(
                 "Failed to communicate with layout service",

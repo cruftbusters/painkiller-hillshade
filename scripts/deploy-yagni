@@ -1,7 +1,7 @@
 cat <<EOF | ssh yagni -T
-  cd /home/arctair/painkiller/heightmap
+  cd /home/arctair/painkiller/hillshade
   git fetch
   git reset origin/main --hard
   systemctl daemon-reload --user
-  systemctl restart painkiller.heightmap --user
+  systemctl restart painkiller.hillshade --user
 EOF
