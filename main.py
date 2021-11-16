@@ -15,7 +15,7 @@ def main():
 
 def tick(baseURL):
     try:
-        response = requests.get(f"{baseURL}/v1/layouts?excludeLayoutsWithHillshade=true")
+        response = requests.get(f"{baseURL}/v1/layouts?withHeightmapWithoutHillshade=true")
         if response.status_code == 200:
             for layout in response.json():
                 hillshade = generate(layout)

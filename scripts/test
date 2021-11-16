@@ -1,0 +1,2 @@
+#!/bin/zsh
+python generate.py < scripts/layout.json | display
