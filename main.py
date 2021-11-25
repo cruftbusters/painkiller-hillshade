@@ -8,8 +8,15 @@ import websockets
 
 from generate import generate
 
-
 async def main():
+    while True:
+        try:
+            await server()
+        except:
+            print("restarting after exception")
+
+
+async def server():
     async with websockets.connect("wss://layouts.painkillergis.com/v1/awaiting_hillshade") as ws:
         while True:
             await ws.send("")
