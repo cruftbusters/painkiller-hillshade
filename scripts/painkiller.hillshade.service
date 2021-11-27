@@ -2,7 +2,7 @@
 Description=painkiller/hillshade
 
 [Service]
-ExecStart=/usr/bin/python /home/arctair/painkiller/hillshade/main.py
+ExecStart=/usr/bin/python /home/arctair/painkiller/hillshade/main.py 0
 StandardOutput=file:/home/arctair/painkiller/hillshade/application.log
 StandardError=file:/home/arctair/painkiller/hillshade/error.log
 Type=simple
