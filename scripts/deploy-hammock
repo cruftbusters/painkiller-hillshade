@@ -1,0 +1,7 @@
+cat <<EOF | ssh hammock -T
+  cd /home/arctair/apps/painkiller/hillshade
+  git fetch
+  git reset origin/main --hard
+  systemctl daemon-reload --user
+  systemctl restart painkiller.hillshade.hammock --user
+EOF

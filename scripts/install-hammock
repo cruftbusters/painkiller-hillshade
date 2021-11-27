@@ -1,0 +1,10 @@
+#!/bin/zsh
+# remember to push this BEFORE you run it!!
+cat <<EOF | ssh hammock -T
+  mkdir -p $HOME/apps/painkiller
+  git clone https://github.com/cruftbusters/painkiller-hillshade apps/painkiller/hillshade
+  cd apps/painkiller/hillshade
+  mkdir -p $HOME/.config/systemd/user
+  ln -s $HOME/apps/painkiller/hillshade/scripts/painkiller.hillshade.hammock.service $HOME/.config/systemd/user/painkiller.hillshade.hammock.service
+  systemctl enable painkiller.hillshade.hammock --user
+EOF
