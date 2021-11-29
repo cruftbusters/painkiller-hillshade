@@ -15,7 +15,8 @@ def generate(layout):
     hillshade = tempfile.mktemp(suffix="#.jpg")
     width = layout['size']['width']
     height = layout['size']['height']
-    process = subprocess.run(["sh", "-c", f"blender -b -P blender.py -noaudio -o //{hillshade} -f 0 -- {heightmap} {width} {height}"], capture_output=True)
+    scale = layout['scale']
+    process = subprocess.run(["sh", "-c", f"blender -b -P blender.py -noaudio -o //{hillshade} -f 0 -- {heightmap} {width} {height} {scale}"], capture_output=True)
     os.remove(heightmap)
     if process.returncode != 0:
         print(process.stdout, file=sys.stderr)

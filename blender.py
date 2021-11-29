@@ -7,6 +7,7 @@ parser = ArgumentParser(
 parser.add_argument('heightmap')
 parser.add_argument('width', type = int)
 parser.add_argument('height', type = int)
+parser.add_argument('scale', type = float)
 
 args = parser.parse_args(sys.argv[sys.argv.index("--") + 1:])
 
@@ -49,7 +50,7 @@ material.use_nodes = True
 bpy.data.objects['Plane'].data.materials.append(material)
 outputNode = material.node_tree.nodes.get('Material Output')
 displacementNode = material.node_tree.nodes.new('ShaderNodeDisplacement')
-displacementNode.inputs['Scale'].default_value = 1 # args.scale
+displacementNode.inputs['Scale'].default_value = args.scale
 imageNode = material.node_tree.nodes.new('ShaderNodeTexImage')
 imageNode.image = bpy.data.images.load(args.heightmap)
 imageNode.image.colorspace_settings.name = 'Linear'
