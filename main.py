@@ -1,8 +1,10 @@
 import json
+import logging
 import os
 
 import asyncio
 import sys
+import time
 
 import requests
 
@@ -13,12 +15,14 @@ from generate import generate
 args = sys.argv[1:]
 priority = args[0]
 
+
 async def main():
     while True:
         try:
             await server(priority)
-        except:
-            print("restarting after exception")
+        except Exception as e:
+            logging.exception(e)
+            time.sleep(1)
 
 
 async def server(priority):
