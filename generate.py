@@ -8,7 +8,7 @@ import tempfile
 
 
 def generate(layout):
-    response = requests.get(layout["heightmapURL"])
+    response = requests.get(layout["hiResHeightmapURL"])
     heightmap = tempfile.mktemp()
     with open(heightmap, 'wb') as f:
         f.write(response.content)
