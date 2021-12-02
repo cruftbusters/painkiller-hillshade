@@ -3,8 +3,6 @@ Description=painkiller/hillshade
 
 [Service]
 ExecStart=/usr/bin/python /home/arctair/apps/painkiller/hillshade/main.py 0
-StandardOutput=file:/home/arctair/apps/painkiller/hillshade/application.log
-StandardError=file:/home/arctair/apps/painkiller/hillshade/error.log
 Type=simple
 WorkingDirectory=/home/arctair/apps/painkiller/hillshade
 
