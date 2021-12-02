@@ -30,6 +30,9 @@ async def server(priority):
         while True:
             await ws.send("")
             layout = json.loads(await ws.recv())
+            print(f"generating hillshade for layout {layout['id']}")
+            sys.stdout.flush()
+
             hillshade = generate(layout)
             with open(hillshade, 'rb') as f:
                 requests.put(f"https://layouts.painkillergis.com/v1/layouts/{layout['id']}/hillshade.jpg", f.read())
